@@ -103,3 +103,6 @@ class GetData:
 		else:
 			return data
 
+if __name__ == '__main__':
+	GetData = GetData()
+	print(GetData.get_data_for_json(3))

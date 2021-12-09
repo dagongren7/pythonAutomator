@@ -4,7 +4,7 @@ import json
 sys.path.append('E:/www/ImoocInterface/')
 from pythonAutomator.util.operation_excel import OperationExcel
 from pythonAutomator.base.runmethod import RunMethod
-from pythonAutomator.data.get_data import GetDatacls
+# from pythonAutomator.data.get_data import GetDatacls
 from jsonpath_rw import jsonpath,parse
 class DependdentData:
 	def __init__(self,case_id):

@@ -1,13 +1,13 @@
 #coding:utf-8
 import sys
-sys.path.append("E:/www/ImoocInterface")
-from base.runmethod import RunMethod
-from data.get_data import GetData
-from util.common_util import CommonUtil
-from data.dependent_data import DependdentData
-from util.send_email import SendEmail
-from util.operation_header import OperationHeader
-from util.operation_json import OperetionJson
+sys.path.append("F:\dailyCode\pythonCode\pythonAutomator")
+from pythonAutomator.base.runmethod import RunMethod
+from pythonAutomator.data.get_data import GetData
+from pythonAutomator.util.common_util import CommonUtil
+from pythonAutomator.data.dependent_data import DependdentData
+from pythonAutomator.util.send_email import SendEmail
+from pythonAutomator.util.operation_header import OperationHeader
+from pythonAutomator.util.operation_json import OperetionJson
 class RunTest:
 	def __init__(self):
 		self.run_method = RunMethod()

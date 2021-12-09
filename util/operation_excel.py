@@ -17,7 +17,7 @@ class OperationExcel:
 		tables = data.sheets()[self.sheet_id]
 		return tables
 
-	#获取单元格的行数
+	#获取单元格的行数,默认从0开始
 	def get_lines(self):
 		tables = self.data
 		return tables.nrows
@@ -71,4 +71,5 @@ class OperationExcel:
 
 if __name__ == '__main__':
 	opers = OperationExcel()
-	print(opers.get_cell_value(1,2))
+	# print(opers.get_cell_value(1,2))
+	print(opers.get_rows_data('4'))

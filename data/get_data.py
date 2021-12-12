@@ -1,4 +1,6 @@
 #coding:utf-8
+import json
+
 from pythonAutomator.util.operation_excel import OperationExcel
 from pythonAutomator.data import data_config
 from pythonAutomator.util.operation_json import OperetionJson
@@ -70,7 +72,8 @@ class GetData:
 		op_mysql = OperationMysql()
 		sql = self.get_expcet_data(row)
 		res = op_mysql.search_one(sql)
-		return res.decode('unicode-escape')
+		# return res.decode('unicode-escape')
+		return res
 
 	def write_result(self,row,value):
 		col = int(data_config.get_result())
@@ -105,4 +108,6 @@ class GetData:
 
 if __name__ == '__main__':
 	GetData = GetData()
-	print(GetData.get_data_for_json(3))
+	json = json.loads(GetData.get_expcet_data_for_mysql(10))
+	print(json.keys())
+	print(json['username'])

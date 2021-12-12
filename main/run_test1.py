@@ -4,6 +4,7 @@ from pythonAutomator.util.operation_json import OperetionJson
 from pythonAutomator.base.runmethod import RunMethod
 from pythonAutomator.data.get_data import GetData
 from pythonAutomator.data.dependent_data import DependdentData
+import json
 
 class RunTest1():
     def __init__(self):
@@ -24,7 +25,11 @@ class RunTest1():
                 url = self.data.get_request_url(i)
                 method = self.data.get_request_method(i)
                 request_data = self.data.get_data_for_json(i)
-                expect_data = self.data.get_expcet_data(i)
+                # expect_data = self.data.get_expcet_data(i)
+                expect_data = json.loads(self.data.get_expcet_data_for_mysql(i))
+                if expect_data != None:
+                    expect_data = expect_data['username']
+                print(i,"------expect: ",expect_data)
                 header = self.data.is_header(i)
                 # header = self.data.is_header(i)
                 depend_case = self.data.is_depend(i)
@@ -36,7 +41,6 @@ class RunTest1():
                     # 获取依赖的key
                     depend_key = self.data.get_depend_field(i)
                     request_data[depend_key] = depend_response_data
-                    print(request_data)
                     #header头信息，是否要写入cookie
                 if header == 'write':
                     res = self.run_method.run_main(method, url, request_data)
@@ -54,6 +58,7 @@ class RunTest1():
                     res = self.run_method.run_main(method, url, request_data)
 
                 #判断预期是否包含在实际结果里面
+                print(res)
                 if self.com_util.is_contain(expect_data,res):
                        self.data.write_result(i,'success')
                        pass_count.append(i)

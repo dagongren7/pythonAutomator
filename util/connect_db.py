@@ -11,7 +11,7 @@ class OperationMysql:
 			port=3306,
 			user='root',
 			passwd='123456',
-			db='le_study',
+			db='test',
 			charset='utf8',
 			cursorclass=MySQLdb.cursors.DictCursor
 			)
@@ -20,11 +20,13 @@ class OperationMysql:
 	#查询一条数据
 	def search_one(self,sql):
 		self.cur.execute(sql)
+		#返回dict字典
 		result = self.cur.fetchone()
+		#将字典转换成字符串json
 		result = json.dumps(result)
 		return result
 
 if __name__ == '__main__':
 	op_mysql = OperationMysql()
-	res = op_mysql.search_one("select * from web_user where Name='mushishi'")
+	res = op_mysql.search_one("select username from user where username='demo'")
 	print(res)

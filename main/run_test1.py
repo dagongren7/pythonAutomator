@@ -3,11 +3,13 @@ from pythonAutomator.util.operation_header import OperationHeader
 from pythonAutomator.util.operation_json import OperetionJson
 from pythonAutomator.base.runmethod import RunMethod
 from pythonAutomator.data.get_data import GetData
+from pythonAutomator.data.dependent_data import DependdentData
 
 class RunTest1():
     def __init__(self):
         self.run_method = RunMethod()
         self.data = GetData()
+        self.com_util = CommonUtil()
 
     def go_on_run(self):
         res = None
@@ -22,10 +24,28 @@ class RunTest1():
                 url = self.data.get_request_url(i)
                 method = self.data.get_request_method(i)
                 request_data = self.data.get_data_for_json(i)
-                print(i,',',request_data)
+                expect_data = self.data.get_expcet_data(i)
                 # header = self.data.is_header(i)
+                depend_case = self.data.is_depend(i)
+                if depend_case != None:
+                    print('depend_case: ', depend_case)
+                    self.depend_data = DependdentData(depend_case)
+                    # 获取的依赖响应数据
+                    depend_response_data = self.depend_data.get_data_for_key(i)
+                    # 获取依赖的key
+                    depend_key = self.data.get_depend_field(i)
+                    request_data[depend_key] = depend_response_data
+                    print(request_data)
                 res = self.run_method.run_main(method, url, request_data)
-
+                #判断预期是否包含在实际结果里面
+                if self.com_util.is_contain(expect_data,res):
+                       self.data.write_result(i,'success')
+                       pass_count.append(i)
+                else:
+                       self.data.write_result(i,'fail')
+                       fail_count.append(i)
+        print('pass_count: ',pass_count)
+        print('fail_count: ',fail_count)
 if __name__ == '__main__':
     run = RunTest1()
     run.go_on_run()

@@ -6,10 +6,12 @@ class SendEmail:
 	global email_host
 	global password
 	email_host = "smtp.163.com"
-	send_user = "mushishi_xu@163.com"
-	password = "xu221168"
+	send_user = "chenzhongren123456@163.com"
+	#todo  使用账户密码可能授权失败，改为授权码，参考连接
+	#https://jingyan.baidu.com/article/c275f6ba33a95de33d7567d9.html
+	password = "OFPKUVWZEHMKVVMW"
 	def send_mail(self,user_list,sub,content):
-		user = "Mushishi"+"<"+send_user+">"
+		user = "13023294697"+"<"+send_user+">"
 		message = MIMEText(content,_subtype='plain',_charset='utf-8')
 		message['Subject'] = sub
 		message['From'] = user
@@ -28,12 +30,15 @@ class SendEmail:
 		pass_result = "%.2f%%" %(pass_num/count_num*100)
 		fail_result = "%.2f%%" %(fail_num/count_num*100)
 
-
-		user_list = ['609037724@qq.com']
-		sub = "接口自动化测试报告"
-		content = "此次一共运行接口个数为%s个，通过个数为%s个，失败个数为%s,通过率为%s,失败率为%s" %(count_num,pass_num,fail_num,pass_result,fail_result )
+		user_list = '810483775@qq.com'
+		sub = 'ceshi'
+		content = "此次一共运行接口个数为%s个，通过list为%s，失败list为%s，通过个数为%s个，失败个数为%s,通过率为%s,失败率为%s" %(count_num,pass_list,fail_list,pass_num,fail_num,pass_result,fail_result )
 		self.send_mail(user_list,sub,content)
 
 if __name__ == '__main__':
 	sen = SendEmail()
-	sen.send_main([1,2,3,4],[2,3,4,5,6,7])
+	# user_list = '810483775@qq.com'
+	# sub = 'ceshi'
+	# content = '测试邮箱'
+	# sen.send_mail(user_list,sub,content)
+	sen.send_main([1,2],[4,5,6,7])

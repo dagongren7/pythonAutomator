@@ -4,6 +4,7 @@ import json
 sys.path.append('E:/www/ImoocInterface/')
 from pythonAutomator.util.operation_excel import OperationExcel
 from pythonAutomator.base.runmethod import RunMethod
+from pythonAutomator.data.get_data import GetData
 # from pythonAutomator.data.get_data import GetDatacls
 from jsonpath_rw import jsonpath,parse
 class DependdentData:
@@ -30,6 +31,7 @@ class DependdentData:
 
 	#根据依赖的key去获取执行依赖测试case的响应,然后返回
 	def get_data_for_key(self,row):
+		#得到该行需要哪一行需要返回的数据
 		depend_data = self.data.get_depend_key(row)
 		response_data = self.run_dependent()
 		json_exe = parse(depend_data)
@@ -63,5 +65,3 @@ if __name__ == '__main__':
 	json_exe = parse(res)
 	madle = json_exe.find(order)
 	print([math.value for math in madle][0])
-
-

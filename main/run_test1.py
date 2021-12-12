@@ -25,6 +25,7 @@ class RunTest1():
                 method = self.data.get_request_method(i)
                 request_data = self.data.get_data_for_json(i)
                 expect_data = self.data.get_expcet_data(i)
+                header = self.data.is_header(i)
                 # header = self.data.is_header(i)
                 depend_case = self.data.is_depend(i)
                 if depend_case != None:
@@ -36,7 +37,22 @@ class RunTest1():
                     depend_key = self.data.get_depend_field(i)
                     request_data[depend_key] = depend_response_data
                     print(request_data)
-                res = self.run_method.run_main(method, url, request_data)
+                    #header头信息，是否要写入cookie
+                if header == 'write':
+                    res = self.run_method.run_main(method, url, request_data)
+                    op_header = OperationHeader(res)
+                    op_header.write_cookie()
+
+                elif header == 'yes':
+                    op_json = OperetionJson('../dataconfig/cookie.json')
+                    cookie = op_json.get_data('apsid')
+                    cookies = {
+                        'apsid': cookie
+                    }
+                    res = self.run_method.run_main(method, url, request_data, cookies)
+                else:
+                    res = self.run_method.run_main(method, url, request_data)
+
                 #判断预期是否包含在实际结果里面
                 if self.com_util.is_contain(expect_data,res):
                        self.data.write_result(i,'success')

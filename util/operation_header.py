@@ -40,4 +40,5 @@ if __name__ == '__main__':
 	}
 	res = json.dumps(requests.post(url,data).json())
 	op_header = OperationHeader(res)
+	print(op_header.response)
 	op_header.write_cookie()
